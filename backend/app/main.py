@@ -17,9 +17,9 @@ MAX=15*1024*1024
 
 def save_bytes(data,suffix):
  fd,path=tempfile.mkstemp(suffix=suffix);os.close(fd);Path(path).write_bytes(data);return Path(path)
-
-@app.get('/api/health')
-def health(): return {'status':'ok','service':'ASTRIX AI','detector':detector_status()}
+@app.api_route('/api/health', methods=['GET', 'HEAD'])
+def health():
+    return {'status':'ok','service':'ASTRIX AI','detector':detector_status()}
 
 @app.post('/api/analyze/image')
 async def analyze_image(file:UploadFile=File(...)):
